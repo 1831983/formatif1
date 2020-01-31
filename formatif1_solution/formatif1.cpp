@@ -8,13 +8,16 @@ using namespace std;
 
 #include "activite.h" 
 #include "eleve.h" 
+#include "donnees.h"
 
-Eleve lesEleves[25];
+//Eleve lesEleves[25];
+//Activite lesActivites[maxActivites];
+//
+//const int maxActivites = 10;
+//const int maxEleves = 25;
 
-const int maxActivites = 10;
-const int maxEleves = 25;
 
-Activite lesActivites[maxActivites];
+Donnees lesDonneesDuProgramme;
 
 int nombreActivitesReelles = 0;
 int nombreElevesReels = 0;
@@ -107,8 +110,8 @@ void AjouterActivite()
 	//ajoutez les instructions permettant d'inscrire la nouvelle activité dans le tableau des activités
 	//utilisez nombreActivitesReelles comme indice pour le tableau
 
-	lesActivites[nombreActivitesReelles].InitialiserActivite(code, titre);
-	lesActivites[nombreActivitesReelles].AssignerResponsable(responsable);
+	lesDonneesDuProgramme.lesActivites[nombreActivitesReelles].InitialiserActivite(code, titre);
+	lesDonneesDuProgramme.lesActivites[nombreActivitesReelles].AssignerResponsable(responsable);
 
 	/*lesActivites[nombreActivitesReelles]*/
 
@@ -122,7 +125,7 @@ void AfficherLesActivites()
 
 	for (int i = 0; i < nombreActivitesReelles; i++)
 	{
-		Afficher(lesActivites[i]);
+		Afficher(lesDonneesDuProgramme.lesActivites[i]);
 	}
 
 	_getch();
@@ -166,7 +169,7 @@ for (int i = 0; i < nombreElevesReels; i++)
 
 	{
 
-	Afficher(lesEleves[i]);
+	Afficher(lesDonneesDuProgramme.lesEleves[i]);
 
 	}
 
@@ -191,7 +194,7 @@ void InscrireUnEleve(string inCode, string inNom, string inPrenom)
 {
 	//Eleve inscriptionEleve( inCode,  inNom, inPrenom);
 
-	lesEleves[nombreElevesReels].InscrireEleve(inCode, inNom, inPrenom);
+	lesDonneesDuProgramme.lesEleves[nombreElevesReels].InscrireEleve(inCode, inNom, inPrenom);
 
 	nombreElevesReels++;
 
@@ -215,11 +218,11 @@ void InscrireEleveActivite()
 
 	if (cptEleve < maxEleves && cptActivite < maxActivites)
 	{
-		Afficher(lesEleves[cptEleve]);
+		Afficher(lesDonneesDuProgramme.lesEleves[cptEleve]);
 
-		Afficher(lesActivites[cptActivite]);
+		Afficher(lesDonneesDuProgramme.lesActivites[cptActivite]);
 
-		lesEleves[cptEleve].InscrireAUneActivite(&lesActivites[cptActivite]);
+		lesDonneesDuProgramme.lesEleves[cptEleve].InscrireAUneActivite(&lesDonneesDuProgramme.lesActivites[cptActivite]);
 	}
 	else
 	{
@@ -236,7 +239,7 @@ int RechercherEleve(string inCodeVoulu)
 	bool trouve = false;
 	while (trouve == false && cptEleve < maxEleves)
 	{
-		if (lesEleves[cptEleve].getCodeEleve() == inCodeVoulu  )
+		if (lesDonneesDuProgramme.lesEleves[cptEleve].getCodeEleve() == inCodeVoulu  )
 		{
 			trouve = true;
 		}
@@ -256,7 +259,7 @@ int RechercherActivite(string inCodeActiviteVoulue)
 	int cptActivite = 0;
 	while (trouve == false && cptActivite < maxActivites/*nombreActivites*/)
 	{
-		if (lesActivites[cptActivite].getCodeActivite() == inCodeActiviteVoulue)
+		if (lesDonneesDuProgramme.lesActivites[cptActivite].getCodeActivite() == inCodeActiviteVoulue)
 		{
 			trouve = true;
 		}
@@ -287,11 +290,11 @@ void AfficherLesInscriptions()
 	
 		for (cptEleve = 0; cptEleve < maxEleves; cptEleve++)
 		{
-			if (lesEleves[cptEleve].getActivite() != NULL)
+			if (lesDonneesDuProgramme.lesEleves[cptEleve].getActivite() != NULL)
 			{
-				if (lesEleves[cptEleve].getActivite()->getCodeActivite() == activite)
+				if (lesDonneesDuProgramme.lesEleves[cptEleve].getActivite()->getCodeActivite() == activite)
 				{
-					Afficher(lesEleves[cptEleve]);
+					Afficher(lesDonneesDuProgramme.lesEleves[cptEleve]);
 				}	
 			}
 		}
